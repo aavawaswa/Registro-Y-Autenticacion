@@ -13,6 +13,7 @@ public class script : MonoBehaviour
     public TMP_InputField PasswordInputField;
     public TMP_InputField ScoreInputField;
     public string URL;
+    public List<TextMeshProUGUI> puntajes_TXT;
 
 
     private string token;
@@ -60,6 +61,11 @@ public class script : MonoBehaviour
         data.password = PasswordInputField.text;
         string json = JsonUtility.ToJson(data);
         StartCoroutine(SendLogin(json));
+        
+    }
+
+    public void puto() 
+    {
         StartCoroutine(GetAll());
     }
 
@@ -165,9 +171,9 @@ public class script : MonoBehaviour
 
             var sortedUsuarios = data.usuarios.OrderByDescending(u => u.data.score).ToArray();
 
-            foreach (UserData us in sortedUsuarios)
+            for (int i = 0; i< puntajes_TXT.Count; i++)
             {
-                Debug.Log(us.username + ": " + us.data.score);
+                puntajes_TXT[i].text = sortedUsuarios[i].username + " Puntajes: " + sortedUsuarios[i].data.score;
             }
         }
     }
